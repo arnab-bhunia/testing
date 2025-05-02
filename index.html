@@ -12,10 +12,22 @@
       background: radial-gradient(circle at top, #ffafbd, #ffc3a0);
       font-family: 'Pacifico', cursive;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container.active {
+      display: flex;
     }
 
     .love-text {
@@ -36,12 +48,14 @@
 
     .buttons {
       margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
     .buttons button {
       font-family: 'Pacifico', cursive;
       font-size: 1.5rem;
-      margin: 10px;
       padding: 10px 25px;
       border: none;
       border-radius: 20px;
@@ -93,39 +107,82 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
 
     @keyframes floatHearts {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(45deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* Punishment Section */
+    .punishments ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .punishments ul li {
+      margin: 15px 0;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s ease;
+    }
+
+    .punishments ul li:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .back-button {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      background: #ff6f91;
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    .back-button:hover {
+      background: #ff4e7a;
     }
   </style>
 </head>
 <body>
-  <div class="love-text">Love You Sabbu 💖</div>
+  <!-- Love Page -->
+  <div class="container active" id="love-page">
+    <div class="love-text">Love You Sabbu 💖</div>
 
-  <div class="buttons">
-    <button onclick="showResponse()">Accept</button>
-    <button onclick="showResponse()">Reject</button>
-    <button onclick="location.href='punishments.html'">Punishments 😈</button>
+    <div class="buttons">
+      <button onclick="showResponse()">Accept</button>
+      <button onclick="showResponse()">Reject</button>
+      <button onclick="goToPunishments()">Punishments 😈</button>
+    </div>
+
+    <div class="response" id="response">Kamde debo 💍💖</div>
   </div>
 
-  <div class="response" id="response">Kamre debo 💍💖</div>
+  <!-- Punishment Page -->
+  <div class="container" id="punishment-page">
+    <h1>Choose Your Punishment 😈</h1>
+    <div class="punishments">
+      <ul>
+        <li>👢 Kick You</li>
+        <li>😾 Bite You</li>
+        <li>🏠 Left Home</li>
+        <li>🕴️ Stand Outside</li>
+        <li>🍔 Take Foods for Me</li>
+      </ul>
+    </div>
+    <button class="back-button" onclick="goBack()">Go Back 💌</button>
+  </div>
 
+  <!-- Animated Hearts -->
   <div class="hearts">
     <div class="heart" style="left:10%; animation-delay: 0s;"></div>
     <div class="heart" style="left:30%; animation-delay: 1s;"></div>
@@ -134,9 +191,20 @@
     <div class="heart" style="left:90%; animation-delay: 0.5s;"></div>
   </div>
 
+  <!-- Script to switch pages -->
   <script>
     function showResponse() {
       document.getElementById('response').style.display = 'block';
+    }
+
+    function goToPunishments() {
+      document.getElementById('love-page').classList.remove('active');
+      document.getElementById('punishment-page').classList.add('active');
+    }
+
+    function goBack() {
+      document.getElementById('punishment-page').classList.remove('active');
+      document.getElementById('love-page').classList.add('active');
     }
   </script>
 </body>
